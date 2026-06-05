@@ -2,7 +2,13 @@ import { useEffect, useRef } from "react";
 import { Link } from "@tanstack/react-router";
 import { useI18n, type Lang } from "@/lib/i18n";
 import logoAsset from "@/assets/merabet-logo.png.asset.json";
-import heroImg from "@/assets/hero-smile.jpg";
+import heroImg from "@/assets/hero-girl-smile.jpg";
+import svcCleaning from "@/assets/services/cleaning.png.asset.json";
+import svcWhitening from "@/assets/services/whitening.png.asset.json";
+import svcImplants from "@/assets/services/implants.png.asset.json";
+import svcOrtho from "@/assets/services/ortho.png.asset.json";
+import svcCavity from "@/assets/services/cavity.png.asset.json";
+import svcEmergency from "@/assets/services/emergency.png.asset.json";
 import "./Home.css";
 
 function useScrollReveal() {
@@ -80,21 +86,27 @@ export function Background() {
 }
 
 const SERVICES = [
-  { icon: "🪥", key: "cleaning" },
-  { icon: "✨", key: "whitening" },
-  { icon: "🦷", key: "implants" },
-  { icon: "📏", key: "ortho" },
-  { icon: "🛡️", key: "cavity" },
-  { icon: "🚑", key: "emergency" },
+  { key: "cleaning", img: svcCleaning.url },
+  { key: "whitening", img: svcWhitening.url },
+  { key: "implants", img: svcImplants.url },
+  { key: "ortho", img: svcOrtho.url },
+  { key: "cavity", img: svcCavity.url },
+  { key: "emergency", img: svcEmergency.url },
 ];
 
 const TEAM = [
-  { initials: "AM", key: "dr1" },
-  { initials: "LM", key: "dr2" },
-  { initials: "SB", key: "dr3" },
+  { initials: "MM", key: "dr1" },
+  { initials: "HC", key: "dr2" },
 ];
 
 const REVIEWS = ["r1", "r2", "r3"];
+
+const STATS = [
+  { num: "+2500", key: "stats.patients" },
+  { num: "5★", key: "stats.reviews" },
+  { num: "10+", key: "stats.years" },
+  { num: "24/7", key: "stats.support" },
+];
 
 export default function Home() {
   const { t, dir } = useI18n();
@@ -108,30 +120,68 @@ export default function Home() {
       {/* HERO */}
       <header id="home" className="mdc-hero">
         <div className="mdc-hero-wrap">
-          <div className="mdc-glass mdc-hero-card mdc-reveal">
-            <span className="mdc-kicker">Merabet Dental Center</span>
-            <h1>
-              <span>{t("hero.title")}</span>
+          <div className="mdc-hero-content mdc-reveal">
+            <span className="mdc-eyebrow">{t("hero.eyebrow")}</span>
+            <h1 className="mdc-hero-title">
+              {t("hero.title.before")}
+              <span className="mdc-grad-text">{t("hero.title.highlight")}</span>
+              {t("hero.title.after")}
             </h1>
-            <p>{t("hero.subtitle")}</p>
-            <Link to="/booking" className="mdc-btn mdc-btn-primary">
-              {t("hero.cta")} →
-            </Link>
+            <p className="mdc-hero-sub">{t("hero.subtitle")}</p>
+
+            <div className="mdc-badges">
+              <span className="mdc-badge">✨ {t("hero.badge.team")}</span>
+              <span className="mdc-badge">🦷 {t("hero.badge.tech")}</span>
+              <span className="mdc-badge">💗 {t("hero.badge.welcome")}</span>
+            </div>
+
+            <div className="mdc-hero-ctas">
+              <Link to="/booking" className="mdc-btn mdc-btn-primary">
+                {t("hero.cta")} →
+              </Link>
+              <a href="#services" className="mdc-btn mdc-btn-ghost">
+                {t("hero.cta2")}
+              </a>
+            </div>
           </div>
+
           <div className="mdc-hero-img mdc-reveal">
-            <img src={heroImg} alt="Bright confident smile" />
+            <img src={heroImg} alt="Bright confident smile" width={1024} height={1280} />
           </div>
+        </div>
+
+        {/* Floating stats bar */}
+        <div className="mdc-stats db-card mdc-reveal">
+          {STATS.map((s) => (
+            <div key={s.key} className="mdc-stat">
+              <div className="mdc-stat-num">{s.num}</div>
+              <div className="mdc-stat-label">{t(s.key)}</div>
+            </div>
+          ))}
         </div>
       </header>
 
-      {/* ABOUT / TEAM */}
+      {/* BOOKING PUSH CTA */}
+      <section className="mdc-section mdc-cta-section">
+        <div className="mdc-cta-card mdc-reveal">
+          <div>
+            <h2>{t("cta.title")}</h2>
+            <p>{t("cta.desc")}</p>
+          </div>
+          <Link to="/booking" className="mdc-btn mdc-btn-primary mdc-cta-btn">
+            {t("cta.btn")} →
+          </Link>
+        </div>
+      </section>
+
+      {/* TEAM */}
       <section id="about" className="mdc-section">
         <div className="mdc-section-head mdc-reveal">
           <span className="mdc-kicker">{t("about.kicker")}</span>
           <h2>{t("about.title")}</h2>
           <p className="lead">{t("about.desc")}</p>
         </div>
-        <div className="mdc-team-grid">
+        <div className="mdc-team-grid mdc-team-grid-2">
           {TEAM.map((m) => (
             <div key={m.key} className="mdc-glass mdc-team-card mdc-reveal">
               <div className="mdc-avatar">{m.initials}</div>
@@ -142,19 +192,27 @@ export default function Home() {
         </div>
       </section>
 
-      {/* SERVICES */}
+      {/* SERVICES — image card grid */}
       <section id="services" className="mdc-section">
         <div className="mdc-section-head mdc-reveal">
+          <span className="mdc-kicker">{t("services.kicker")}</span>
           <h2>{t("services.title")}</h2>
         </div>
-        <div className="mdc-services-grid">
+        <div className="mdc-svc-grid">
           {SERVICES.map((s) => (
-            <div key={s.key} className="mdc-glass mdc-service mdc-reveal">
-              <div className="mdc-service-icon">{s.icon}</div>
-              <h3>{t(`services.${s.key}`)}</h3>
-              <p>{t(`services.${s.key}.desc`)}</p>
-            </div>
+            <article key={s.key} className="mdc-glass mdc-svc-card mdc-reveal">
+              <div className="mdc-svc-img">
+                <img src={s.img} alt={t(`services.${s.key}`)} loading="lazy" />
+              </div>
+              <div className="mdc-svc-body">
+                <h3>{t(`services.${s.key}`)}</h3>
+                <p>{t(`services.${s.key}.desc`)}</p>
+              </div>
+            </article>
           ))}
+        </div>
+        <div className="mdc-svc-foot mdc-reveal">
+          <Link to="/booking" className="mdc-btn mdc-btn-primary">{t("nav.book")} →</Link>
         </div>
       </section>
 
