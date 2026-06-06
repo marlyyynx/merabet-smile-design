@@ -257,7 +257,11 @@ export default function Home() {
                 <p><a href="tel:+213664596991">{t("contact.phoneVal")}</a></p>
                 <p><a href="mailto:merabetmohammed7@gmail.com">{t("contact.emailVal")}</a></p>
                 <p className="mdc-fb">
-                  <span className="mdc-fb-icon" aria-hidden>f</span>
+                  <span className="mdc-fb-icon" aria-hidden>
+                    <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16">
+                      <path d="M22 12a10 10 0 1 0-11.56 9.88v-6.99H7.9V12h2.54V9.8c0-2.51 1.49-3.9 3.78-3.9 1.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56V12h2.77l-.44 2.89h-2.33v6.99A10 10 0 0 0 22 12z"/>
+                    </svg>
+                  </span>
                   <a
                     href="https://www.facebook.com/search/top?q=%D8%B9%D9%8A%D8%A7%D8%AF%D8%A9%20%D8%A7%D9%84%D8%AF%D9%83%D8%AA%D9%88%D8%B1%20%D9%85%D8%B1%D8%A7%D8%A8%D8%B7%20%D9%85%D8%AD%D9%85%D8%AF"
                     target="_blank" rel="noopener noreferrer"
