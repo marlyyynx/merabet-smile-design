@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 import { Link } from "@tanstack/react-router";
 import { useI18n, type Lang } from "@/lib/i18n";
 import logoAsset from "@/assets/merabet-logo.png.asset.json";
-import heroImg from "@/assets/hero-girl-smile.jpg";
+import heroImg from "@/assets/hero-clinic.jpg";
 import svcCleaning from "@/assets/services/cleaning.png.asset.json";
 import svcWhitening from "@/assets/services/whitening.png.asset.json";
 import svcImplants from "@/assets/services/implants.png.asset.json";
@@ -146,7 +146,7 @@ export default function Home() {
           </div>
 
           <div className="mdc-hero-img mdc-reveal">
-            <img src={heroImg} alt="Bright confident smile" width={1024} height={1280} />
+            <img src={heroImg} alt="Merabet Dental Center interior" width={1280} height={1024} />
           </div>
         </div>
 
@@ -234,11 +234,9 @@ export default function Home() {
 
       {/* CONTACT */}
       <section id="contact" className="mdc-section">
-        <div className="mdc-section-head mdc-reveal">
-          <h2>{t("contact.title")}</h2>
-        </div>
         <div className="mdc-contact-grid">
-          <div className="mdc-glass mdc-contact-info mdc-reveal">
+          <div className="mdc-contact-info mdc-reveal">
+            <h2 className="mdc-contact-h2">{t("contact.title")}</h2>
             <div className="mdc-contact-item">
               <div className="icon">📍</div>
               <div>
@@ -257,13 +255,28 @@ export default function Home() {
               <div className="icon">📞</div>
               <div>
                 <h4>{t("contact.phone")}</h4>
-                <p>{t("contact.phoneVal")}</p>
+                <p><a href="tel:+213664596991">{t("contact.phoneVal")}</a></p>
+                <p><a href="mailto:merabetmohammed7@gmail.com">{t("contact.emailVal")}</a></p>
+                <p className="mdc-fb">
+                  <span className="mdc-fb-icon" aria-hidden>f</span>
+                  <a
+                    href="https://www.facebook.com/search/top?q=%D8%B9%D9%8A%D8%A7%D8%AF%D8%A9%20%D8%A7%D9%84%D8%AF%D9%83%D8%AA%D9%88%D8%B1%20%D9%85%D8%B1%D8%A7%D8%A8%D8%B7%20%D9%85%D8%AD%D9%85%D8%AF"
+                    target="_blank" rel="noopener noreferrer"
+                  >{t("contact.facebookVal")}</a>
+                </p>
               </div>
             </div>
           </div>
-          <div className="mdc-glass mdc-map mdc-reveal">
-            <div className="pin" aria-hidden />
-            <div className="label">{t("contact.map")}</div>
+          <div className="mdc-map-pin mdc-reveal" aria-label={t("contact.map")}>
+            <div className="mdc-map-pin-inner">
+              <iframe
+                title="Map"
+                src="https://www.google.com/maps?q=Djemorah,+Biskra,+Algeria&output=embed"
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+              />
+            </div>
+            <div className="mdc-map-pin-tail" />
           </div>
         </div>
       </section>
