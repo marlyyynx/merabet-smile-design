@@ -515,7 +515,10 @@
     grid-template-columns: repeat(2, 1fr);
     margin: 3rem 1rem -4rem;
     padding: 1.4rem 1rem;
-    gap: 1rem 0.5rem;
+    gap: 1.2rem 0.5rem;
+    width: auto;
+    max-width: none;
+    box-sizing: border-box;
   }
   .mdc-stat + .mdc-stat::before { display: none; }
   .mdc-cta-section { padding-top: 6rem; }
