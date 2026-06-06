@@ -78,14 +78,18 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
+      { title: "Denatal Clinic" },
+      { name: "description", content: "Merabet Smile Design is a premium, animated website for a dental center, showcasing services and facilitating appointment bookings." },
       { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { property: "og:title", content: "Denatal Clinic" },
+      { property: "og:description", content: "Merabet Smile Design is a premium, animated website for a dental center, showcasing services and facilitating appointment bookings." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
       { name: "twitter:site", content: "@Lovable" },
+      { name: "twitter:title", content: "Denatal Clinic" },
+      { name: "twitter:description", content: "Merabet Smile Design is a premium, animated website for a dental center, showcasing services and facilitating appointment bookings." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/f686babd-79dd-4ce6-a0c7-8ee5c2a1dda5/id-preview-e89706f4--32edbc92-df90-42f0-9944-b645e4dca210.lovable.app-1780733899932.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/f686babd-79dd-4ce6-a0c7-8ee5c2a1dda5/id-preview-e89706f4--32edbc92-df90-42f0-9944-b645e4dca210.lovable.app-1780733899932.png" },
     ],
     links: [
       {
