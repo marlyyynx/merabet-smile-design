@@ -552,11 +552,12 @@
 .mdc-contact-info p a:hover { color: var(--mdc-indigo); }
 .mdc-fb { display: flex; align-items: center; gap: 0.5rem; margin-top: 0.4rem !important; flex-wrap: wrap; }
 .mdc-fb-icon {
-  width: 22px; height: 22px; border-radius: 50%;
+  width: 24px; height: 24px; border-radius: 50%;
   background: #1877f2; color: #fff;
   display: inline-flex; align-items: center; justify-content: center;
-  font-weight: 800; font-size: 0.85rem; font-family: Georgia, serif;
+  flex-shrink: 0;
 }
+.mdc-fb-icon svg { display: block; }
 
 /* Pin-shaped map */
 .mdc-map-pin {
