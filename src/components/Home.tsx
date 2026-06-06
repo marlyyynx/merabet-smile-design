@@ -186,7 +186,6 @@ export default function Home() {
             <div key={m.key} className="mdc-glass mdc-team-card mdc-reveal">
               <div className="mdc-avatar">{m.initials}</div>
               <h3>{t(`team.${m.key}.name`)}</h3>
-              <p>{t(`team.${m.key}.role`)}</p>
             </div>
           ))}
         </div>

@@ -484,6 +484,18 @@
 /* ============================================================
    Responsive overrides
    ============================================================ */
+@media (max-width: 1024px) {
+  .mdc-hero-wrap { gap: 2rem; padding: 0 1.5rem; }
+  .mdc-hero-title { font-size: clamp(2rem, 4.5vw, 2.8rem); }
+  .mdc-hero-img { max-height: 420px; }
+  .mdc-stats { margin-left: 1.5rem; margin-right: 1.5rem; padding: 1.4rem 1.2rem; }
+  .mdc-stat-num { font-size: 1.6rem; }
+  .mdc-svc-grid { grid-template-columns: repeat(2, 1fr); }
+  .mdc-nav { padding: 0.7rem 1rem; }
+  .mdc-nav-links { gap: 0.9rem; }
+  .mdc-contact-grid { gap: 2rem; }
+}
+
 @media (max-width: 960px) {
   .mdc-hero-wrap { grid-template-columns: 1fr; gap: 2rem; }
   .mdc-hero-img { order: -1; max-height: 360px; aspect-ratio: 16/10; }
