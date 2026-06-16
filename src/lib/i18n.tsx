@@ -91,6 +91,11 @@ const dictionaries: Record<Lang, Dict> = {
     "booking.submit": "Submit Request",
     "booking.success": "Request sent! We will call you to confirm.",
     "booking.back": "← Back to home",
+    "booking.dentist": "Choose your dentist",
+    "booking.taken": "Booked",
+    "booking.closed": "Closed on this day. Please pick another date.",
+    "booking.pickDate": "Please pick a date first.",
+    "booking.error": "Could not send your request. Please try again.",
   },
   fr: {
     "nav.home": "Accueil",
@@ -178,6 +183,11 @@ const dictionaries: Record<Lang, Dict> = {
     "booking.submit": "Envoyer la demande",
     "booking.success": "Demande envoyée ! Nous vous appellerons pour confirmer.",
     "booking.back": "← Retour à l'accueil",
+    "booking.dentist": "Choisissez votre dentiste",
+    "booking.taken": "Réservé",
+    "booking.closed": "Fermé ce jour-là. Choisissez une autre date.",
+    "booking.pickDate": "Veuillez d'abord choisir une date.",
+    "booking.error": "Impossible d'envoyer la demande. Réessayez.",
   },
   ar: {
     "nav.home": "الرئيسية",
@@ -265,6 +275,11 @@ const dictionaries: Record<Lang, Dict> = {
     "booking.submit": "إرسال الطلب",
     "booking.success": "تم إرسال الطلب! سنتصل بك للتأكيد.",
     "booking.back": "← العودة إلى الرئيسية",
+    "booking.dentist": "اختر طبيبك",
+    "booking.taken": "محجوز",
+    "booking.closed": "العيادة مغلقة في هذا اليوم. اختر تاريخًا آخر.",
+    "booking.pickDate": "يرجى اختيار التاريخ أولاً.",
+    "booking.error": "تعذّر إرسال الطلب. حاول مرة أخرى.",
   },
 };
 
@@ -278,7 +293,7 @@ interface I18nContextValue {
 const I18nContext = createContext<I18nContextValue | null>(null);
 
 export function I18nProvider({ children }: { children: ReactNode }) {
-  const [lang, setLangState] = useState<Lang>("en");
+  const [lang, setLangState] = useState<Lang>("ar");
 
   useEffect(() => {
     if (typeof window === "undefined") return;
