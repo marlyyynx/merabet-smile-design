@@ -591,3 +591,62 @@
   .mdc-map-pin { max-width: 280px; }
   .mdc-contact-grid { gap: 2rem; }
 }
+
+/* Booking extras */
+.db-dentists { display:flex; gap:.6rem; flex-wrap:wrap; }
+.db-dentist {
+  flex:1; min-width:140px; padding:.85rem 1rem; border-radius:14px;
+  border:1px solid rgba(99,102,241,.25); background:rgba(255,255,255,.7);
+  cursor:pointer; font-weight:600; color:#1e293b; transition:.2s;
+}
+.db-dentist:hover { border-color:#6366f1; }
+.db-dentist.active { background:linear-gradient(135deg,#4f46e5,#6366f1); color:#fff; border-color:transparent; }
+.db-hint { font-size:.9rem; color:#64748b; padding:.4rem 0; }
+.db-error { color:#b91c1c; font-size:.9rem; margin-top:.4rem; }
+.db-hour { position:relative; }
+.db-hour.taken {
+  background:#e5e7eb !important; color:#9ca3af !important;
+  text-decoration:line-through; cursor:not-allowed; border-color:transparent !important;
+}
+.db-hour-taken {
+  display:block; font-size:.65rem; line-height:1; margin-top:2px;
+  text-decoration:none; font-weight:600;
+}
+
+/* Admin dashboard */
+.adm-root { min-height:100vh; padding:6rem 1.5rem 4rem; max-width:1200px; margin:0 auto; }
+.adm-head { display:flex; align-items:center; justify-content:space-between; margin-bottom:1.5rem; flex-wrap:wrap; gap:1rem; }
+.adm-head h1 { margin:0; font-size:1.6rem; }
+.adm-tabs { display:flex; gap:.5rem; border-bottom:1px solid #e5e7eb; margin-bottom:1.5rem; flex-wrap:wrap; }
+.adm-tab { padding:.7rem 1.1rem; background:none; border:none; cursor:pointer; font-weight:600; color:#64748b; border-bottom:2px solid transparent; }
+.adm-tab.active { color:#4f46e5; border-color:#4f46e5; }
+.adm-card { background:rgba(255,255,255,.8); backdrop-filter:blur(16px); border:1px solid rgba(99,102,241,.15); border-radius:18px; padding:1.2rem; margin-bottom:1rem; }
+.adm-table { width:100%; border-collapse:collapse; }
+.adm-table th, .adm-table td { padding:.7rem .6rem; text-align:start; border-bottom:1px solid #f1f5f9; font-size:.9rem; }
+.adm-table th { font-weight:600; color:#475569; background:#f8fafc; }
+.adm-row-actions { display:flex; gap:.4rem; flex-wrap:wrap; }
+.adm-btn { padding:.4rem .7rem; border-radius:8px; border:1px solid #e2e8f0; background:#fff; cursor:pointer; font-size:.8rem; font-weight:600; }
+.adm-btn:hover { background:#f8fafc; }
+.adm-btn-primary { background:linear-gradient(135deg,#4f46e5,#6366f1); color:#fff; border-color:transparent; }
+.adm-btn-danger { color:#b91c1c; border-color:#fecaca; }
+.adm-status { padding:.2rem .55rem; border-radius:999px; font-size:.7rem; font-weight:700; text-transform:uppercase; }
+.adm-status.pending { background:#fef3c7; color:#92400e; }
+.adm-status.confirmed { background:#dcfce7; color:#166534; }
+.adm-status.cancelled { background:#fee2e2; color:#991b1b; }
+.adm-status.done { background:#dbeafe; color:#1e40af; }
+.adm-filters { display:flex; gap:.6rem; flex-wrap:wrap; margin-bottom:1rem; }
+.adm-filters select, .adm-filters input { padding:.5rem .7rem; border:1px solid #e2e8f0; border-radius:8px; font-size:.9rem; }
+.adm-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:1rem; }
+.adm-wh-row { display:grid; grid-template-columns:90px 60px 1fr 1fr 70px; gap:.5rem; align-items:center; padding:.5rem 0; border-bottom:1px solid #f1f5f9; font-size:.85rem; }
+.adm-input { padding:.45rem .6rem; border:1px solid #e2e8f0; border-radius:6px; font-size:.85rem; width:100%; }
+@media (max-width: 640px) {
+  .adm-table { font-size:.78rem; }
+  .adm-table th, .adm-table td { padding:.45rem .35rem; }
+  .adm-wh-row { grid-template-columns:70px 50px 1fr 1fr; }
+}
+
+/* Auth page */
+.auth-root { min-height:100vh; display:flex; align-items:center; justify-content:center; padding:2rem; }
+.auth-card { width:100%; max-width:400px; background:rgba(255,255,255,.85); backdrop-filter:blur(20px); border:1px solid rgba(99,102,241,.2); border-radius:24px; padding:2rem; box-shadow:0 20px 60px rgba(79,70,229,.15); }
+.auth-card h1 { margin:0 0 .3rem; font-size:1.5rem; }
+.auth-card p.sub { color:#64748b; font-size:.9rem; margin:0 0 1.5rem; }
