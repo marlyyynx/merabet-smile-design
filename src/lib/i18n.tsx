@@ -275,6 +275,11 @@ const dictionaries: Record<Lang, Dict> = {
     "booking.submit": "إرسال الطلب",
     "booking.success": "تم إرسال الطلب! سنتصل بك للتأكيد.",
     "booking.back": "← العودة إلى الرئيسية",
+    "booking.dentist": "اختر طبيبك",
+    "booking.taken": "محجوز",
+    "booking.closed": "العيادة مغلقة في هذا اليوم. اختر تاريخًا آخر.",
+    "booking.pickDate": "يرجى اختيار التاريخ أولاً.",
+    "booking.error": "تعذّر إرسال الطلب. حاول مرة أخرى.",
   },
 };
 
