@@ -99,7 +99,7 @@ function Reservations() {
   const [appts, setAppts] = useState<Appointment[]>([]);
   const [dentists, setDentists] = useState<Dentist[]>([]);
   const [reasons, setReasons] = useState<Reason[]>([]);
-  const [statusFilter, setStatusFilter] = useState("");
+  const [statusFilter, setStatusFilter] = useState<""|ApptStatus>("");
   const [dentistFilter, setDentistFilter] = useState("");
   const [dateFilter, setDateFilter] = useState("");
   const [loading, setLoading] = useState(true);
@@ -107,7 +107,7 @@ function Reservations() {
   const load = async () => {
     setLoading(true);
     let q = supabase.from("appointments").select("*").order("appt_date", { ascending: false }).order("appt_hour", { ascending: true });
-    if (statusFilter) q = q.eq("status", statusFilter);
+    if (statusFilter) q = q.eq("status", statusFilter as ApptStatus);
     if (dentistFilter) q = q.eq("dentist_id", dentistFilter);
     if (dateFilter) q = q.eq("appt_date", dateFilter);
     const { data } = await q;
@@ -122,7 +122,7 @@ function Reservations() {
 
   useEffect(() => { load(); /* eslint-disable-next-line */ }, [statusFilter, dentistFilter, dateFilter]);
 
-  const setStatus = async (id: string, status: string) => {
+  const setStatus = async (id: string, status: ApptStatus) => {
     await supabase.from("appointments").update({ status }).eq("id", id);
     load();
   };
