@@ -109,7 +109,7 @@ export default function Booking() {
         .select("appt_hour")
         .eq("dentist_id", dentistId)
         .eq("appt_date", date);
-      setTakenHours((data || []).map((row: { appt_hour: string }) => row.appt_hour.slice(0, 5)));
+      setTakenHours((data || []).flatMap((row) => (row.appt_hour ? [row.appt_hour.slice(0, 5)] : [])));
       setLoadingSlots(false);
     })();
   }, [dentistId, date]);
