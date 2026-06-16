@@ -138,7 +138,7 @@ function Reservations() {
   return (
     <div className="adm-card">
       <div className="adm-filters">
-        <select value={statusFilter} onChange={(e) => setStatusFilter(e.target.value)}>
+        <select value={statusFilter} onChange={(e) => setStatusFilter(e.target.value as ""|ApptStatus)}>
           <option value="">All statuses</option>
           <option value="pending">Pending</option>
           <option value="confirmed">Confirmed</option>
