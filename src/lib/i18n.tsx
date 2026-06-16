@@ -183,6 +183,11 @@ const dictionaries: Record<Lang, Dict> = {
     "booking.submit": "Envoyer la demande",
     "booking.success": "Demande envoyée ! Nous vous appellerons pour confirmer.",
     "booking.back": "← Retour à l'accueil",
+    "booking.dentist": "Choisissez votre dentiste",
+    "booking.taken": "Réservé",
+    "booking.closed": "Fermé ce jour-là. Choisissez une autre date.",
+    "booking.pickDate": "Veuillez d'abord choisir une date.",
+    "booking.error": "Impossible d'envoyer la demande. Réessayez.",
   },
   ar: {
     "nav.home": "الرئيسية",
