@@ -9,6 +9,7 @@ export const Route = createFileRoute("/_authenticated/admin")({
   component: AdminPage,
 });
 
+type ApptStatus = "pending" | "confirmed" | "cancelled" | "done";
 type Tab = "reservations" | "hours" | "reasons";
 
 interface Appointment {
