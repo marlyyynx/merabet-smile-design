@@ -91,6 +91,11 @@ const dictionaries: Record<Lang, Dict> = {
     "booking.submit": "Submit Request",
     "booking.success": "Request sent! We will call you to confirm.",
     "booking.back": "← Back to home",
+    "booking.dentist": "Choose your dentist",
+    "booking.taken": "Booked",
+    "booking.closed": "Closed on this day. Please pick another date.",
+    "booking.pickDate": "Please pick a date first.",
+    "booking.error": "Could not send your request. Please try again.",
   },
   fr: {
     "nav.home": "Accueil",
