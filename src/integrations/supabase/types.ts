@@ -14,16 +14,223 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      appointments: {
+        Row: {
+          appt_date: string
+          appt_hour: string
+          created_at: string
+          dentist_id: string
+          id: string
+          notes: string | null
+          patient_name: string
+          patient_phone: string
+          reason_id: string | null
+          status: Database["public"]["Enums"]["appointment_status"]
+          updated_at: string
+        }
+        Insert: {
+          appt_date: string
+          appt_hour: string
+          created_at?: string
+          dentist_id: string
+          id?: string
+          notes?: string | null
+          patient_name: string
+          patient_phone: string
+          reason_id?: string | null
+          status?: Database["public"]["Enums"]["appointment_status"]
+          updated_at?: string
+        }
+        Update: {
+          appt_date?: string
+          appt_hour?: string
+          created_at?: string
+          dentist_id?: string
+          id?: string
+          notes?: string | null
+          patient_name?: string
+          patient_phone?: string
+          reason_id?: string | null
+          status?: Database["public"]["Enums"]["appointment_status"]
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "appointments_dentist_id_fkey"
+            columns: ["dentist_id"]
+            isOneToOne: false
+            referencedRelation: "dentists"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "appointments_reason_id_fkey"
+            columns: ["reason_id"]
+            isOneToOne: false
+            referencedRelation: "reasons"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      dentists: {
+        Row: {
+          active: boolean
+          created_at: string
+          id: string
+          name_ar: string
+          name_en: string
+          name_fr: string
+          sort_order: number
+        }
+        Insert: {
+          active?: boolean
+          created_at?: string
+          id?: string
+          name_ar: string
+          name_en: string
+          name_fr: string
+          sort_order?: number
+        }
+        Update: {
+          active?: boolean
+          created_at?: string
+          id?: string
+          name_ar?: string
+          name_en?: string
+          name_fr?: string
+          sort_order?: number
+        }
+        Relationships: []
+      }
+      reasons: {
+        Row: {
+          active: boolean
+          created_at: string
+          id: string
+          label_ar: string
+          label_en: string
+          label_fr: string
+          sort_order: number
+        }
+        Insert: {
+          active?: boolean
+          created_at?: string
+          id?: string
+          label_ar: string
+          label_en: string
+          label_fr: string
+          sort_order?: number
+        }
+        Update: {
+          active?: boolean
+          created_at?: string
+          id?: string
+          label_ar?: string
+          label_en?: string
+          label_fr?: string
+          sort_order?: number
+        }
+        Relationships: []
+      }
+      user_roles: {
+        Row: {
+          created_at: string
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
+      working_hours: {
+        Row: {
+          dentist_id: string
+          end_time: string
+          id: string
+          is_open: boolean
+          slot_minutes: number
+          start_time: string
+          weekday: number
+        }
+        Insert: {
+          dentist_id: string
+          end_time?: string
+          id?: string
+          is_open?: boolean
+          slot_minutes?: number
+          start_time?: string
+          weekday: number
+        }
+        Update: {
+          dentist_id?: string
+          end_time?: string
+          id?: string
+          is_open?: boolean
+          slot_minutes?: number
+          start_time?: string
+          weekday?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "working_hours_dentist_id_fkey"
+            columns: ["dentist_id"]
+            isOneToOne: false
+            referencedRelation: "dentists"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
-      [_ in never]: never
+      taken_slots: {
+        Row: {
+          appt_date: string | null
+          appt_hour: string | null
+          dentist_id: string | null
+        }
+        Insert: {
+          appt_date?: string | null
+          appt_hour?: string | null
+          dentist_id?: string | null
+        }
+        Update: {
+          appt_date?: string | null
+          appt_hour?: string | null
+          dentist_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "appointments_dentist_id_fkey"
+            columns: ["dentist_id"]
+            isOneToOne: false
+            referencedRelation: "dentists"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Functions: {
-      [_ in never]: never
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "admin" | "user"
+      appointment_status: "pending" | "confirmed" | "cancelled" | "done"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +357,9 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["admin", "user"],
+      appointment_status: ["pending", "confirmed", "cancelled", "done"],
+    },
   },
 } as const
