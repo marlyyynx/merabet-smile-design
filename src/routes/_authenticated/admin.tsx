@@ -1,7 +1,9 @@
 import { createFileRoute, useNavigate, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
+import { useServerFn } from "@tanstack/react-start";
 import { supabase } from "@/integrations/supabase/client";
 import { Background } from "@/components/Home";
+import { listStaff, addStaff, removeStaff, type StaffMember } from "@/lib/staff.functions";
 import "@/components/Home.css";
 
 export const Route = createFileRoute("/_authenticated/admin")({
