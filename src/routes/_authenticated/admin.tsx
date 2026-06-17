@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { supabase } from "@/integrations/supabase/client";
 import { Background } from "@/components/Home";
-import { listStaff, addStaff, removeStaff, type StaffMember } from "@/lib/staff.functions";
+import { getAdminStatus, listStaff, addStaff, removeStaff, type StaffMember } from "@/lib/staff.functions";
 import "@/components/Home.css";
 
 export const Route = createFileRoute("/_authenticated/admin")({
@@ -34,20 +34,24 @@ const WEEKDAYS = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
 
 function AdminPage() {
   const navigate = useNavigate();
+  const checkAdmin = useServerFn(getAdminStatus);
   const [tab, setTab] = useState<Tab>("reservations");
   const [isAdmin, setIsAdmin] = useState<boolean | null>(null);
   const [email, setEmail] = useState("");
+  const [currentUserId, setCurrentUserId] = useState<string | null>(null);
 
   useEffect(() => {
     (async () => {
-      const { data: u } = await supabase.auth.getUser();
-      if (!u.user) { navigate({ to: "/auth" }); return; }
-      setEmail(u.user.email ?? "");
-      const { data, error } = await supabase
-        .from("user_roles").select("role").eq("user_id", u.user.id).eq("role", "admin").maybeSingle();
-      setIsAdmin(!error && !!data);
+      try {
+        const status = await checkAdmin();
+        setEmail(status.email);
+        setCurrentUserId(status.userId);
+        setIsAdmin(status.isAdmin);
+      } catch {
+        navigate({ to: "/auth" });
+      }
     })();
-  }, [navigate]);
+  }, [checkAdmin, navigate]);
 
   const signOut = async () => {
     await supabase.auth.signOut();
@@ -58,11 +62,6 @@ function AdminPage() {
     return <div className="mdc-root"><Background /><div className="adm-root"><p>Loading…</p></div></div>;
   }
   if (!isAdmin) {
-    const claim = async () => {
-      const { data, error } = await supabase.rpc("claim_first_admin");
-      if (error) { alert(error.message); return; }
-      if (data) { setIsAdmin(true); } else { alert("An admin already exists. Ask them to grant you access."); }
-    };
     return (
       <div className="mdc-root"><Background />
         <div className="adm-root">
@@ -70,10 +69,9 @@ function AdminPage() {
             <h2>Not authorized</h2>
             <p>Your account ({email}) is signed in but does not have admin access.</p>
             <p style={{ fontSize: ".85rem", color: "#64748b" }}>
-              If this is the very first admin account, click the button below to claim admin access. After that, this button will be disabled for everyone else.
+              Ask an existing admin to add this email from Staff management.
             </p>
             <div style={{ display: "flex", gap: ".6rem", marginTop: ".5rem" }}>
-              <button className="adm-btn adm-btn-primary" onClick={claim}>Claim admin access</button>
               <button className="adm-btn" onClick={signOut}>Sign out</button>
             </div>
           </div>
@@ -102,7 +100,7 @@ function AdminPage() {
         {tab === "reservations" && <Reservations />}
         {tab === "hours" && <HoursPanel />}
         {tab === "reasons" && <ReasonsPanel />}
-        {tab === "staff" && <StaffPanel currentUserId={null} />}
+        {tab === "staff" && <StaffPanel currentUserId={currentUserId} />}
       </div>
     </div>
   );

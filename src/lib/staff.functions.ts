@@ -2,10 +2,36 @@ import { createServerFn } from "@tanstack/react-start";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 
 async function ensureAdmin(ctx: { supabase: any; userId: string }) {
-  const { data, error } = await ctx.supabase
-    .from("user_roles").select("role").eq("user_id", ctx.userId).eq("role", "admin").maybeSingle();
+  const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+  const { data, error } = await supabaseAdmin
+    .from("user_roles")
+    .select("role")
+    .eq("user_id", ctx.userId)
+    .eq("role", "admin")
+    .maybeSingle();
   if (error || !data) throw new Error("Forbidden: admin only");
 }
+
+export const getAdminStatus = createServerFn({ method: "GET" })
+  .middleware([requireSupabaseAuth])
+  .handler(async ({ context }) => {
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { data: role, error } = await supabaseAdmin
+      .from("user_roles")
+      .select("role")
+      .eq("user_id", context.userId)
+      .eq("role", "admin")
+      .maybeSingle();
+
+    if (error) throw new Error(error.message);
+
+    const { data: userData } = await supabaseAdmin.auth.admin.getUserById(context.userId);
+    return {
+      userId: context.userId,
+      email: userData.user?.email ?? "",
+      isAdmin: !!role,
+    };
+  });
 
 export interface StaffMember {
   user_id: string;
