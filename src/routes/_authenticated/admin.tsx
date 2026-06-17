@@ -62,11 +62,6 @@ function AdminPage() {
     return <div className="mdc-root"><Background /><div className="adm-root"><p>Loading…</p></div></div>;
   }
   if (!isAdmin) {
-    const claim = async () => {
-      const { data, error } = await supabase.rpc("claim_first_admin");
-      if (error) { alert(error.message); return; }
-      if (data) { setIsAdmin(true); } else { alert("An admin already exists. Ask them to grant you access."); }
-    };
     return (
       <div className="mdc-root"><Background />
         <div className="adm-root">
@@ -74,10 +69,9 @@ function AdminPage() {
             <h2>Not authorized</h2>
             <p>Your account ({email}) is signed in but does not have admin access.</p>
             <p style={{ fontSize: ".85rem", color: "#64748b" }}>
-              If this is the very first admin account, click the button below to claim admin access. After that, this button will be disabled for everyone else.
+              Ask an existing admin to add this email from Staff management.
             </p>
             <div style={{ display: "flex", gap: ".6rem", marginTop: ".5rem" }}>
-              <button className="adm-btn adm-btn-primary" onClick={claim}>Claim admin access</button>
               <button className="adm-btn" onClick={signOut}>Sign out</button>
             </div>
           </div>
