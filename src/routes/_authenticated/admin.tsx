@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { supabase } from "@/integrations/supabase/client";
 import { Background } from "@/components/Home";
-import { listStaff, addStaff, removeStaff, type StaffMember } from "@/lib/staff.functions";
+import { getAdminStatus, listStaff, addStaff, removeStaff, type StaffMember } from "@/lib/staff.functions";
 import "@/components/Home.css";
 
 export const Route = createFileRoute("/_authenticated/admin")({
@@ -34,20 +34,24 @@ const WEEKDAYS = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
 
 function AdminPage() {
   const navigate = useNavigate();
+  const checkAdmin = useServerFn(getAdminStatus);
   const [tab, setTab] = useState<Tab>("reservations");
   const [isAdmin, setIsAdmin] = useState<boolean | null>(null);
   const [email, setEmail] = useState("");
+  const [currentUserId, setCurrentUserId] = useState<string | null>(null);
 
   useEffect(() => {
     (async () => {
-      const { data: u } = await supabase.auth.getUser();
-      if (!u.user) { navigate({ to: "/auth" }); return; }
-      setEmail(u.user.email ?? "");
-      const { data, error } = await supabase
-        .from("user_roles").select("role").eq("user_id", u.user.id).eq("role", "admin").maybeSingle();
-      setIsAdmin(!error && !!data);
+      try {
+        const status = await checkAdmin();
+        setEmail(status.email);
+        setCurrentUserId(status.userId);
+        setIsAdmin(status.isAdmin);
+      } catch {
+        navigate({ to: "/auth" });
+      }
     })();
-  }, [navigate]);
+  }, [checkAdmin, navigate]);
 
   const signOut = async () => {
     await supabase.auth.signOut();
@@ -102,7 +106,7 @@ function AdminPage() {
         {tab === "reservations" && <Reservations />}
         {tab === "hours" && <HoursPanel />}
         {tab === "reasons" && <ReasonsPanel />}
-        {tab === "staff" && <StaffPanel currentUserId={null} />}
+        {tab === "staff" && <StaffPanel currentUserId={currentUserId} />}
       </div>
     </div>
   );
