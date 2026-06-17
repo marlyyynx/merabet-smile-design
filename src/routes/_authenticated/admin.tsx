@@ -97,10 +97,12 @@ function AdminPage() {
           <button className={`adm-tab ${tab === "reservations" ? "active" : ""}`} onClick={() => setTab("reservations")}>Reservations</button>
           <button className={`adm-tab ${tab === "hours" ? "active" : ""}`} onClick={() => setTab("hours")}>Dentists & Hours</button>
           <button className={`adm-tab ${tab === "reasons" ? "active" : ""}`} onClick={() => setTab("reasons")}>Visit Reasons</button>
+          <button className={`adm-tab ${tab === "staff" ? "active" : ""}`} onClick={() => setTab("staff")}>Staff</button>
         </div>
         {tab === "reservations" && <Reservations />}
         {tab === "hours" && <HoursPanel />}
         {tab === "reasons" && <ReasonsPanel />}
+        {tab === "staff" && <StaffPanel currentUserId={null} />}
       </div>
     </div>
   );
