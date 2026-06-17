@@ -299,3 +299,92 @@ function ReasonsPanel() {
     </div>
   );
 }
+
+/* ---------------- Staff ---------------- */
+function StaffPanel({ currentUserId }: { currentUserId: string | null }) {
+  const list = useServerFn(listStaff);
+  const add = useServerFn(addStaff);
+  const remove = useServerFn(removeStaff);
+  const [staff, setStaff] = useState<StaffMember[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+  const [busy, setBusy] = useState(false);
+  const [draft, setDraft] = useState<{ email: string; password: string; role: "admin" | "staff" }>({
+    email: "", password: "", role: "staff",
+  });
+
+  const load = async () => {
+    setLoading(true);
+    setError("");
+    try {
+      const data = await list();
+      setStaff(data);
+    } catch (e: any) {
+      setError(e.message || "Failed to load staff");
+    }
+    setLoading(false);
+  };
+  useEffect(() => { load(); }, []);
+
+  const onAdd = async () => {
+    if (!draft.email || !draft.password) return;
+    setBusy(true); setError("");
+    try {
+      await add({ data: draft });
+      setDraft({ email: "", password: "", role: "staff" });
+      await load();
+    } catch (e: any) {
+      setError(e.message || "Failed to add");
+    }
+    setBusy(false);
+  };
+
+  const onRemove = async (m: StaffMember) => {
+    if (!confirm(`Remove ${m.role} role from ${m.email}?`)) return;
+    try {
+      await remove({ data: { user_id: m.user_id, role: m.role } });
+      await load();
+    } catch (e: any) {
+      alert(e.message || "Failed to remove");
+    }
+  };
+
+  return (
+    <div className="adm-card">
+      <h3 style={{ margin: "0 0 .8rem" }}>Add a staff or admin account</h3>
+      <div className="adm-filters" style={{ marginBottom: "1rem" }}>
+        <input className="adm-input" placeholder="email@example.com" value={draft.email}
+          onChange={(e) => setDraft({ ...draft, email: e.target.value })} />
+        <input className="adm-input" type="password" placeholder="Password (min 6)" value={draft.password}
+          onChange={(e) => setDraft({ ...draft, password: e.target.value })} />
+        <select value={draft.role} onChange={(e) => setDraft({ ...draft, role: e.target.value as "admin" | "staff" })}>
+          <option value="staff">Staff</option>
+          <option value="admin">Admin</option>
+        </select>
+        <button className="adm-btn adm-btn-primary" onClick={onAdd} disabled={busy}>
+          {busy ? "Adding…" : "Add account"}
+        </button>
+      </div>
+      {error && <div className="db-error" style={{ marginBottom: "1rem" }}>{error}</div>}
+
+      <h3 style={{ margin: "0 0 .8rem" }}>Current staff</h3>
+      {loading ? <p>Loading…</p> : staff.length === 0 ? <p>No staff yet.</p> : (
+        <table className="adm-table">
+          <thead><tr><th>Email</th><th>Role</th><th>Added</th><th></th></tr></thead>
+          <tbody>
+            {staff.map((m) => (
+              <tr key={`${m.user_id}-${m.role}`}>
+                <td>{m.email}</td>
+                <td><span className={`adm-status ${m.role === "admin" ? "confirmed" : "pending"}`}>{m.role}</span></td>
+                <td>{new Date(m.created_at).toLocaleDateString()}</td>
+                <td>
+                  <button className="adm-btn adm-btn-danger" onClick={() => onRemove(m)}>Remove</button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
+    </div>
+  );
+}
