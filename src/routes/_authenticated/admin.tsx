@@ -12,7 +12,7 @@ export const Route = createFileRoute("/_authenticated/admin")({
 });
 
 type ApptStatus = "pending" | "confirmed" | "cancelled" | "done";
-type Tab = "reservations" | "hours" | "reasons";
+type Tab = "reservations" | "hours" | "reasons" | "staff";
 
 interface Appointment {
   id: string;
